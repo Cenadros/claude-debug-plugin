@@ -2,8 +2,13 @@
   "name": "claude-debug-mode",
   "version": "1.0.0",
   "description": "Cursor-like debug mode for Claude CLI. Provides systematic debugging with hypothesis generation, auto-logging instrumentation, log analysis, and targeted fixes.",
-  "author": "claude-debug-plugin",
+  "author": "Cenadros",
+  "repository": "https://github.com/Cenadros/claude-debug-plugin",
+  "license": "MIT",
+  "keywords": ["debugging", "development", "logging", "bug-fixing", "systematic-debugging"],
   "commands": ["debug"],
   "agents": ["debug-agent"],
-  "skills": ["debug-workflow"]
+  "skills": ["debug-workflow"],
+  "homepage": "https://github.com/Cenadros/claude-debug-plugin#readme",
+  "bugs": "https://github.com/Cenadros/claude-debug-plugin/issues"
 }
