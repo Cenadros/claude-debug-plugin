@@ -1,0 +1,30 @@
+---
+description: Create RAG-enhanced skill packages for Claude Code
+---
+
+# Claude Code Skill Creator
+
+Create skill packages that combine prompts, context, and workflows.
+
+## Skill Structure
+
+Skills are created in `.claude/skills/<skill-name>/` with:
+- `skill.md` - Main skill definition with YAML frontmatter
+- `context/` - Supporting documentation and examples
+- `workflows/` - Step-by-step procedures
+
+## Features
+
+- RAG-enhanced context loading
+- Workflow chaining
+- Tool specifications
+- Model preferences
+
+## Instructions
+
+When invoked:
+1. Ask for skill name and purpose
+2. Define target domain/functionality
+3. Create skill directory structure
+4. Generate skill.md with frontmatter
+5. Add starter context files

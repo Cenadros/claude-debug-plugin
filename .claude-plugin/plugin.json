@@ -1,0 +1,9 @@
+{
+  "name": "claude-debug-mode",
+  "version": "1.0.0",
+  "description": "Cursor-like debug mode for Claude CLI. Provides systematic debugging with hypothesis generation, auto-logging instrumentation, log analysis, and targeted fixes.",
+  "author": "claude-debug-plugin",
+  "commands": ["debug"],
+  "agents": ["debug-agent"],
+  "skills": ["debug-workflow"]
+}
