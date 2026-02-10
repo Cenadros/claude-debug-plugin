@@ -13,16 +13,16 @@ A Claude Code plugin that brings Cursor-like debug mode capabilities to the Clau
 
 ## Installation
 
-### Option 1: Install from directory
+### Option 1: Install from GitHub
+
+```bash
+claude plugin add github:Cenadros/claude-debug-plugin
+```
+
+### Option 2: Install from local directory
 
 ```bash
 claude plugin add /path/to/claude-debug-plugin
-```
-
-### Option 2: Install from GitHub
-
-```bash
-claude plugin add github:yourusername/claude-debug-plugin
 ```
 
 ## Usage
