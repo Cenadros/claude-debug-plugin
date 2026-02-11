@@ -1,0 +1,32 @@
+{
+  "name": "cenadros-plugins",
+  "owner": {
+    "name": "Cenadros",
+    "email": "cenadros@users.noreply.github.com"
+  },
+  "metadata": {
+    "description": "Claude Code plugins by Cenadros",
+    "version": "1.0.0",
+    "pluginRoot": "./plugins"
+  },
+  "plugins": [
+    {
+      "name": "claude-debug-mode",
+      "source": {
+        "source": "github",
+        "repo": "Cenadros/claude-debug-plugin"
+      },
+      "description": "Debug plugin for Claude Code — capture runtime data with fetch() instrumentation",
+      "version": "3.0.0",
+      "author": {
+        "name": "Cenadros"
+      },
+      "homepage": "https://github.com/Cenadros/claude-debug-plugin#readme",
+      "repository": "https://github.com/Cenadros/claude-debug-plugin",
+      "license": "MIT",
+      "keywords": ["debugging", "logging", "instrumentation", "runtime-capture"],
+      "category": "debugging",
+      "tags": ["debug", "logging", "runtime", "instrumentation"]
+    }
+  ]
+}
