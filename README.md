@@ -8,9 +8,9 @@ Inspired by [opencode-debug](https://github.com/MrgSub/opencode-debug).
 
 1. **Hypothesize** — Agent analyzes the bug, explores the code, and forms 2-4 ranked hypotheses
 2. **Instrument** — Agent starts a local HTTP server and inserts targeted `fetch()` calls to test each hypothesis
-3. **Reproduce** — You trigger the bug while the server captures runtime data
-4. **Analyze** — Agent checks each hypothesis against the log evidence. If inconclusive, loops back to step 2 with refined hypotheses
-5. **Fix & Verify** — Agent implements a minimal fix and asks you to confirm the bug is gone
+3. **Reproduce** — You trigger the bug while the server captures runtime data, then select an outcome (reproduced, can't reproduce, or different behavior)
+4. **Analyze** — Agent checks each hypothesis against the log evidence and presents findings. You choose: implement fix, gather more data, or rethink hypotheses
+5. **Fix & Verify** — Agent implements a minimal fix. You confirm the result: fixed, still broken, or partially fixed
 6. **Clean up** — Agent removes the debug fetch calls and stops the server
 
 ## Installation

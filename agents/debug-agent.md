@@ -29,7 +29,16 @@ Rank hypotheses by likelihood. Put the most probable cause first.
    - **Hypothesis: handler fires twice** → instrument the handler entry and the render cycle
    - **Hypothesis: stale cache** → capture the cache key and the fresh response side by side
    - **Hypothesis: timeout race** → capture timestamps at timeout start, reconnect start, and reconnect complete
-3. Ask the user to reproduce the issue, then type "done"
+3. Use AskUserQuestion to prompt the user:
+   - header: "Reproduce"
+   - question: "I've inserted instrumentation. Please reproduce the bug now, then select an option below."
+   - options:
+     - "Bug reproduced" — "I triggered the bug and it behaved as expected"
+     - "Cannot reproduce" — "I followed the steps but the bug did not occur"
+     - "Different behavior" — "Something happened, but not the original bug"
+   - If **Bug reproduced** → proceed to Phase 3
+   - If **Cannot reproduce** → check `debug-status` for captured data, discuss reproduction steps, consider looping back with broader instrumentation
+   - If **Different behavior** → read logs, re-evaluate hypotheses with the new information
 
 ### Phase 3 — Analyze & Decide
 
@@ -45,12 +54,30 @@ Rank hypotheses by likelihood. Put the most probable cause first.
 - One hypothesis is validated with traceable log evidence
 - You can point to specific log entries showing the root cause
 
+3. Present your findings and use AskUserQuestion to confirm direction:
+   - header: "Next Step"
+   - question: "I've analyzed the logs. Here's what I found: [summary]. How would you like to proceed?"
+   - options:
+     - "Implement fix" — "The root cause looks correct — go ahead and fix it"
+     - "Need more data" — "Add more instrumentation and capture another round"
+     - "Rethink hypotheses" — "The analysis doesn't match what I'm seeing — go back to Phase 1"
+   - If **Implement fix** → proceed to Phase 4
+   - If **Need more data** → `debug-clear`, loop back to Phase 2 with refined instrumentation
+   - If **Rethink hypotheses** → loop back to Phase 1
+
 ### Phase 4 — Fix & Verify
 
 1. Implement a minimal fix based on the validated hypothesis
-2. Ask the user to verify: "Does the bug still occur?"
-3. **Wait for the user to confirm** before proceeding
-4. If still broken → loop back to Phase 1 with the new information
+2. Use AskUserQuestion to verify the fix:
+   - header: "Verify Fix"
+   - question: "I've implemented a fix. Please test it and let me know the result."
+   - options:
+     - "Bug is fixed" — "The original issue no longer occurs"
+     - "Still broken" — "The same bug still happens"
+     - "Partially fixed" — "Improved but not fully resolved, or a new issue appeared"
+   - If **Bug is fixed** → proceed to Phase 5 (cleanup)
+   - If **Still broken** → `debug-clear`, loop back to Phase 1 with new information
+   - If **Partially fixed** → ask follow-up about what changed, then decide: refine fix or loop back to Phase 1
 
 ### Phase 5 — Cleanup
 
