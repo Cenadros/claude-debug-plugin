@@ -20,25 +20,25 @@ Inspired by [opencode-debug](https://github.com/MrgSub/opencode-debug).
 Add the marketplace and install the plugin:
 
 ```
-/plugin marketplace add github:Cenadros/claude-debug-plugin
+/plugin marketplace add Cenadros/claude-debug-plugin
 /plugin install claude-debug-mode@cenadros-plugins
 ```
 
 ### From GitHub
 
 ```
-/plugin add github:Cenadros/claude-debug-plugin
+/plugin add Cenadros/claude-debug-plugin
 ```
 
 ## Tools
 
-| Tool           | Description                              |
-| -------------- | ---------------------------------------- |
-| `debug-start`  | Start the debug capture server           |
-| `debug-stop`   | Stop the server (logs are preserved)     |
-| `debug-read`   | Read and analyze captured debug data     |
-| `debug-clear`  | Clear the log file for a fresh session   |
-| `debug-status` | Check if debug mode is active            |
+| Tool           | Description                            |
+| -------------- | -------------------------------------- |
+| `debug-start`  | Start the debug capture server         |
+| `debug-stop`   | Stop the server (logs are preserved)   |
+| `debug-read`   | Read and analyze captured debug data   |
+| `debug-clear`  | Clear the log file for a fresh session |
+| `debug-status` | Check if debug mode is active          |
 
 ## Usage
 
@@ -58,7 +58,7 @@ The agent inserts calls like this:
 fetch("http://localhost:3737/debug", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ label: "descriptive-label", data: { key: value } })
+  body: JSON.stringify({ label: "descriptive-label", data: { key: value } }),
 }).catch(() => {});
 ```
 
