@@ -76,6 +76,7 @@ fetch("http://localhost:PORT/debug", {
 
 ## Important
 
+- **NEVER create files in the user's project.** The server script is bundled at `${CLAUDE_DEBUG_PLUGIN_ROOT}/scripts/capture-logs.js`. Do not create debug_server.mjs or any other script files.
+- The ONLY modifications allowed in the user's project are inserting/removing fetch() instrumentation calls in existing source files.
 - Do not propose fixes before reading log evidence
 - Always remove fetch() calls after debugging is complete
-- The debug server script path is relative to the plugin directory

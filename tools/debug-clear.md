@@ -7,7 +7,7 @@ None.
 
 ## Implementation
 ```bash
-node scripts/capture-logs.js --clear
+node "${CLAUDE_DEBUG_PLUGIN_ROOT}/scripts/capture-logs.js" --clear
 ```
 
 ## Returns
