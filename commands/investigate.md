@@ -1,16 +1,40 @@
 # /investigate
 
-You are now in **Debug Mode**. Follow this workflow to diagnose the issue.
+You are now in **Debug Mode**. Follow this hypothesis-driven workflow to diagnose the issue.
 
 ## Workflow
 
-1. **Analyze the issue** — Understand the bug from the user's description and explore the relevant code
-2. **Start the debug server** — Run `debug-start` to begin capturing
-3. **Instrument the code** — Insert fetch() calls at strategic locations (function entry/exit, async operations, catch blocks, state changes)
-4. **Reproduce** — Ask the user to trigger the bug, then type "done"
-5. **Read and analyze logs** — Run `debug-read` and trace the execution flow to find the root cause
-6. **Fix** — Propose a minimal fix based on log evidence
-7. **Clean up** — Remove all fetch() calls from the code and run `debug-stop`
+### Phase 1 — Understand & Hypothesize
+
+1. Analyze the bug from the user's description
+2. Explore the relevant code paths
+3. Form **2-4 specific, testable hypotheses** ranked by likelihood
+
+Each hypothesis should name a concrete cause (e.g. "the auth token expires before the refresh fires") not a vague area (e.g. "something wrong with auth").
+
+### Phase 2 — Instrument & Capture
+
+1. Run `debug-start` to begin capturing
+2. Insert fetch() calls **targeted at validating or invalidating your hypotheses** — each call should map to a specific hypothesis
+3. Ask the user to reproduce the bug, then type "done"
+
+### Phase 3 — Analyze & Decide
+
+1. Run `debug-read` and check each hypothesis against the log evidence
+2. **Decision point:**
+   - **Root cause clear** — one hypothesis validated with traceable evidence → go to Phase 4
+   - **Inconclusive** — unexpected data, missing info, or multiple viable hypotheses remain → refine hypotheses, add/move fetch() calls, and **loop back to Phase 2**
+
+### Phase 4 — Fix & Verify
+
+1. Implement a minimal fix based on the validated hypothesis
+2. Ask the user to verify the bug is gone
+3. **If still broken** → loop back to Phase 1 with new information
+
+### Phase 5 — Cleanup
+
+1. Remove all fetch() calls from the code
+2. Run `debug-stop`
 
 ## Fetch Call Template
 
@@ -21,10 +45,6 @@ fetch("http://localhost:PORT/debug", {
   body: JSON.stringify({ label: "descriptive-label", data: { key: value } })
 }).catch(() => {});
 ```
-
-Use descriptive labels: `"user-login-start"`, `"api-response"`, `"error-caught"`, `"state-before-update"`.
-
-Place calls at function entry/exit, before/after async operations, inside catch blocks, and at state changes.
 
 ## Important
 

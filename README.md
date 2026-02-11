@@ -6,11 +6,12 @@ Inspired by [opencode-debug](https://github.com/MrgSub/opencode-debug).
 
 ## How It Works
 
-1. **Start debug server** — Local HTTP server begins listening for debug events
-2. **Instrument code** — Agent inserts `fetch()` calls at key locations in your codebase
-3. **Reproduce the issue** — You run your code and trigger the bug
-4. **Analyze logs** — Agent reads the captured data to identify the problem
-5. **Clean up** — Agent removes the debug fetch calls and stops the server
+1. **Hypothesize** — Agent analyzes the bug, explores the code, and forms 2-4 ranked hypotheses
+2. **Instrument** — Agent starts a local HTTP server and inserts targeted `fetch()` calls to test each hypothesis
+3. **Reproduce** — You trigger the bug while the server captures runtime data
+4. **Analyze** — Agent checks each hypothesis against the log evidence. If inconclusive, loops back to step 2 with refined hypotheses
+5. **Fix & Verify** — Agent implements a minimal fix and asks you to confirm the bug is gone
+6. **Clean up** — Agent removes the debug fetch calls and stops the server
 
 ## Installation
 
@@ -36,7 +37,7 @@ Start a debugging session with the `/investigate` command:
 /investigate "API returns 500 when creating user with duplicate email"
 ```
 
-The agent will start the debug server, instrument your code, and ask you to reproduce the issue. After you trigger the bug and type "done", the agent reads the logs and proposes a fix.
+The agent will form hypotheses, instrument your code to test them, and ask you to reproduce the issue. After analyzing the logs, it either refines its hypotheses and loops back, or proposes a fix and asks you to verify.
 
 ### Fetch Call Template
 
