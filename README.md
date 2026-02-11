@@ -1,133 +1,64 @@
-# Claude Debug Mode Plugin
+# Claude Debug Mode
 
-A Claude Code plugin that brings Cursor-like debug mode capabilities to the Claude CLI.
+A debug plugin for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that captures runtime data from instrumented code. The agent inserts `fetch()` calls at strategic locations, captures the data via a local HTTP server, and analyzes the logs to diagnose issues.
 
-## Features
+Inspired by [opencode-debug](https://github.com/MrgSub/opencode-debug).
 
-- **Hypothesis Generation**: Automatically generates 5-7 possible bug sources
-- **Smart Narrowing**: Distills to the most likely causes
-- **Auto-Logging**: Injects strategic debug logging statements
-- **Log Analysis**: Analyzes captured logs to pinpoint issues
-- **Targeted Fixes**: Proposes minimal, focused fixes
-- **Automatic Cleanup**: Removes all debug code after verification
+## How It Works
+
+1. **Start debug server** — Local HTTP server begins listening for debug events
+2. **Instrument code** — Agent inserts `fetch()` calls at key locations in your codebase
+3. **Reproduce the issue** — You run your code and trigger the bug
+4. **Analyze logs** — Agent reads the captured data to identify the problem
+5. **Clean up** — Agent removes the debug fetch calls and stops the server
 
 ## Installation
-
-### Option 1: Install from GitHub
 
 ```bash
 claude plugin add github:Cenadros/claude-debug-plugin
 ```
 
-### Option 2: Install from local directory
+## Tools
 
-```bash
-claude plugin add /path/to/claude-debug-plugin
-```
+| Tool           | Description                              |
+| -------------- | ---------------------------------------- |
+| `debug-start`  | Start the debug capture server           |
+| `debug-stop`   | Stop the server (logs are preserved)     |
+| `debug-read`   | Read and analyze captured debug data     |
+| `debug-clear`  | Clear the log file for a fresh session   |
+| `debug-status` | Check if debug mode is active            |
 
 ## Usage
 
-Activate debug mode with the `/debug` command followed by a bug description:
+Start a debugging session with the `/investigate` command:
 
 ```
-/debug "API returns 500 error when creating user with duplicate email"
+/investigate "API returns 500 when creating user with duplicate email"
 ```
 
-### Debug Workflow
+The agent will start the debug server, instrument your code, and ask you to reproduce the issue. After you trigger the bug and type "done", the agent reads the logs and proposes a fix.
 
-The plugin follows a systematic 8-phase debugging workflow:
+### Fetch Call Template
 
-1. **Hypothesis Generation** - Analyzes codebase and generates possible bug sources
-2. **Narrowing** - Identifies the most likely causes
-3. **Log Instrumentation** - Adds strategic `[DEBUG-MODE]` logging
-4. **Reproduction** - Guides you to reproduce and capture logs
-5. **Analysis** - Deep analysis of logs and execution flow
-6. **Fix Proposal** - Proposes a minimal, targeted fix
-7. **Verification** - Confirms the fix works
-8. **Cleanup** - Removes all debug logging
+The agent inserts calls like this:
 
-### Example Session
-
-```
-You: /debug "React component not re-rendering after state update"
-
-Debug Agent: 🔍 Analyzing bug...
-
-Possible sources:
-1. State mutation instead of new object creation
-2. Missing dependency in useEffect
-3. Incorrect key prop causing reconciliation issues
-4. State update batching behavior
-5. Stale closure capturing old state
-6. Conditional rendering logic error
-7. Parent component preventing re-render
-
-📍 Most likely causes:
-1. State mutation (HIGH) - Common React anti-pattern
-2. Stale closure (MEDIUM) - Often occurs with callbacks
-
-Adding debug logging to track state changes...
-
-[Logs added to component]
-
-📋 Please reproduce the bug:
-1. Trigger the state update
-2. Check if component re-renders
-3. Paste the console output here
+```javascript
+fetch("http://localhost:3737/debug", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ label: "descriptive-label", data: { key: value } })
+}).catch(() => {});
 ```
 
-## Plugin Structure
+### Log Format
+
+Logs are plain text:
 
 ```
-claude-debug-plugin/
-├── .claude-plugin/
-│   └── plugin.json          # Plugin metadata
-├── commands/
-│   └── debug.md             # /debug slash command
-├── agents/
-│   └── debug-agent.md       # Specialized debug agent
-├── skills/
-│   └── debug-workflow.md    # Debug methodology
-└── README.md
+[2026-02-10T15:30:45.123Z] user-login-start | {"userId":123}
+[2026-02-10T15:30:45.456Z] api-response | {"status":200}
+[2026-02-10T15:30:45.789Z] error-caught | {"error":"Duplicate email"}
 ```
-
-## Log Format
-
-All debug logs use a consistent format for easy identification and cleanup:
-
-```
-[DEBUG-MODE] <location> | <event> | <data>
-```
-
-Examples:
-```
-[DEBUG-MODE] userController.create | ENTRY | { email: "test@example.com" }
-[DEBUG-MODE] userController.create | DB_QUERY | Inserting user
-[DEBUG-MODE] userController.create | ERROR | SequelizeUniqueConstraintError
-```
-
-## Supported Languages
-
-The debug agent adapts logging syntax for your project's language:
-
-- JavaScript/TypeScript
-- Python
-- Go
-- Rust
-- Java
-- Ruby
-- And more...
-
-## Tips
-
-- **Be Specific**: Provide detailed bug descriptions for better hypothesis generation
-- **Include Context**: Mention when the bug occurs, what you expected, and what happened
-- **Share Logs**: Copy full console/server output for accurate analysis
-- **Verify Thoroughly**: Test edge cases before confirming the fix
-
-## Contributing
-
-Contributions welcome! Please submit issues and pull requests.
 
 ## License
 
