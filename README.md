@@ -15,8 +15,19 @@ Inspired by [opencode-debug](https://github.com/MrgSub/opencode-debug).
 
 ## Installation
 
-```bash
-claude plugin add github:Cenadros/claude-debug-plugin
+### From the Marketplace
+
+Add the marketplace and install the plugin:
+
+```
+/plugin marketplace add github:Cenadros/claude-debug-plugin
+/plugin install claude-debug-mode@cenadros-plugins
+```
+
+### From GitHub
+
+```
+/plugin add github:Cenadros/claude-debug-plugin
 ```
 
 ## Tools
