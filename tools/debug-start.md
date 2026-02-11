@@ -7,7 +7,7 @@ Start the debug capture server.
 
 ## Implementation
 ```bash
-node scripts/capture-logs.js --start [--port=PORT]
+node "${CLAUDE_DEBUG_PLUGIN_ROOT}/scripts/capture-logs.js" --start [--port=PORT]
 ```
 
 ## Returns

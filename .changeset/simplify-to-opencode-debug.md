@@ -1,5 +1,5 @@
 ---
-"claude-debug-mode": major
+"claude-debug-plugin": major
 ---
 
 # Simplify plugin to match opencode-debug (v3.0.0)

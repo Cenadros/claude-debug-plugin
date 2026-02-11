@@ -7,10 +7,10 @@ None.
 
 ## Implementation
 ```bash
-node scripts/capture-logs.js --stop
+node "${CLAUDE_DEBUG_PLUGIN_ROOT}/scripts/capture-logs.js" --stop
 ```
 
 ## Returns
 JSON with `status: "stopped"` or `status: "not_running"`.
 
-The log file is preserved at `.debug-logs/debug.log`. Remember to remove the fetch() calls you inserted in the codebase.
+Stops the server and removes all debug files (logs and state). Remember to remove the fetch() calls you inserted in the codebase.

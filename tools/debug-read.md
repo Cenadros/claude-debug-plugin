@@ -7,7 +7,7 @@ Read captured debug logs.
 
 ## Implementation
 ```bash
-node scripts/capture-logs.js --read [--tail=N]
+node "${CLAUDE_DEBUG_PLUGIN_ROOT}/scripts/capture-logs.js" --read [--tail=N]
 ```
 
 ## Returns
