@@ -1,7 +1,7 @@
 # Claude Code local settings
 .claude/
 
-# Node modules (if any)
+# Node modules
 node_modules/
 
 # OS files
@@ -15,9 +15,8 @@ Thumbs.db
 *.swo
 *~
 
-# Logs
-*.log
-npm-debug.log*
+# Debug logs
+.debug-logs/
 
 # Environment variables
 .env

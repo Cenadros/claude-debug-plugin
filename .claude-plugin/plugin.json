@@ -1,14 +1,15 @@
 {
   "name": "claude-debug-mode",
-  "version": "1.0.0",
-  "description": "Cursor-like debug mode for Claude CLI. Provides systematic debugging with hypothesis generation, auto-logging instrumentation, log analysis, and targeted fixes.",
-  "author": "Cenadros",
+  "version": "3.0.0",
+  "description": "Debug plugin for Claude Code — capture runtime data with fetch() instrumentation",
+  "author": {
+    "name": "Cenadros",
+    "url": "https://github.com/Cenadros"
+  },
   "repository": "https://github.com/Cenadros/claude-debug-plugin",
-  "license": "MIT",
-  "keywords": ["debugging", "development", "logging", "bug-fixing", "systematic-debugging"],
-  "commands": ["debug"],
-  "agents": ["debug-agent"],
-  "skills": ["debug-workflow"],
   "homepage": "https://github.com/Cenadros/claude-debug-plugin#readme",
-  "bugs": "https://github.com/Cenadros/claude-debug-plugin/issues"
+  "license": "MIT",
+  "keywords": ["debugging", "logging", "instrumentation", "runtime-capture"],
+  "commands": "./commands/",
+  "agents": "./agents/debug-agent.md"
 }
