@@ -4,7 +4,7 @@
  * Debug Log Capture Server
  *
  * HTTP server that receives POST requests with labeled debug data.
- * Logs are written as plain text to .debug-logs/debug.log.
+ * Logs are written as plain text to a temp directory.
  *
  * Commands:
  *   --start [--port=3737]  Start the HTTP server
@@ -17,10 +17,11 @@
 const http = require('http');
 const net = require('net');
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 
 const DEFAULT_PORT = 3737;
-const LOG_DIR = path.join(__dirname, '..', '.debug-logs');
+const LOG_DIR = path.join(os.tmpdir(), 'claude-debug-mode');
 const LOG_FILE = path.join(LOG_DIR, 'debug.log');
 const STATE_FILE = path.join(LOG_DIR, 'server-state.json');
 
@@ -47,6 +48,12 @@ function loadState() {
 
 function clearState() {
   try { fs.unlinkSync(STATE_FILE); } catch {}
+}
+
+function cleanupAll() {
+  try { fs.unlinkSync(LOG_FILE); } catch {}
+  clearState();
+  try { fs.rmdirSync(LOG_DIR); } catch {}
 }
 
 function findAvailablePort(preferred) {
@@ -155,7 +162,7 @@ async function startServer(port) {
     console.log(JSON.stringify({ status: 'started', ...state }));
   });
 
-  const shutdown = () => { server.close(() => { clearState(); process.exit(0); }); };
+  const shutdown = () => { server.close(() => { cleanupAll(); process.exit(0); }); };
   process.on('SIGTERM', shutdown);
   process.on('SIGINT', shutdown);
 }
@@ -168,7 +175,7 @@ async function stopServer() {
   }
 
   try { process.kill(state.pid, 'SIGTERM'); } catch {}
-  clearState();
+  cleanupAll();
   console.log(JSON.stringify({ status: 'stopped' }));
 }
 

@@ -15,9 +15,6 @@ Thumbs.db
 *.swo
 *~
 
-# Debug logs
-.debug-logs/
-
 # Environment variables
 .env
 .env.local
