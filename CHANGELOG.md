@@ -1,5 +1,11 @@
 # claude-debug-plugin
 
+## 1.0.1
+
+### Patch Changes
+
+- [#8](https://github.com/Cenadros/claude-debug-plugin/pull/8) [`36883a7`](https://github.com/Cenadros/claude-debug-plugin/commit/36883a7598791ff0e12ccb9207c90b0be09fbeef) Thanks [@Cenadros](https://github.com/Cenadros)! - Fix invalid marketplace source format in README installation instruct
+
 ## 1.0.0
 
 ### Major Changes
