@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Claude Code plugins by Cenadros",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -17,7 +17,7 @@
         "repo": "Cenadros/claude-debug-plugin"
       },
       "description": "Debug plugin for Claude Code — capture runtime data with fetch() instrumentation",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Cenadros"
       },
